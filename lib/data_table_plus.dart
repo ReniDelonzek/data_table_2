@@ -8,10 +8,7 @@ library data_table_plus;
 
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 double _smRatio = 0.67;
 double _lmRatio = 1.2;
@@ -134,7 +131,8 @@ class DataTablePlus extends DataTable {
       ValueSetter<bool?>? onSelectAll,
       Decoration? decoration,
       MaterialStateProperty<Color?>? dataRowColor,
-      double? dataRowHeight,
+      double? dataRowMinHeight,
+      double? dataRowMaxHeight,
       TextStyle? dataTextStyle,
       MaterialStateProperty<Color?>? headingRowColor,
       double? headingRowHeight,
@@ -158,7 +156,8 @@ class DataTablePlus extends DataTable {
             onSelectAll: onSelectAll,
             decoration: decoration,
             dataRowColor: dataRowColor,
-            dataRowHeight: dataRowHeight,
+            dataRowMinHeight: dataRowMinHeight,
+            dataRowMaxHeight: dataRowMaxHeight,
             dataTextStyle: dataTextStyle,
             headingRowColor: headingRowColor,
             headingRowHeight: headingRowHeight,
@@ -283,7 +282,7 @@ class DataTablePlus extends DataTable {
 
     final TextStyle effectiveHeadingTextStyle = headingTextStyle ??
         themeData.dataTableTheme.headingTextStyle ??
-        themeData.textTheme.subtitle2!;
+        themeData.textTheme.titleSmall!;
     final double effectiveHeadingRowHeight = headingRowHeight ??
         themeData.dataTableTheme.headingRowHeight ??
         _headingRowHeight;
@@ -340,9 +339,9 @@ class DataTablePlus extends DataTable {
 
     final TextStyle effectiveDataTextStyle = dataTextStyle ??
         themeData.dataTableTheme.dataTextStyle ??
-        themeData.textTheme.bodyText2!;
-    final double effectiveDataRowHeight = dataRowHeight ??
-        themeData.dataTableTheme.dataRowHeight ??
+        themeData.textTheme.bodyMedium!;
+    final double effectiveDataRowHeight = dataRowMinHeight ??
+        themeData.dataTableTheme.dataRowMinHeight ??
         kMinInteractiveDimension;
     label = Container(
       padding: padding,
@@ -557,7 +556,7 @@ class DataTablePlus extends DataTable {
                   effectiveTableColumns.length, const _NullWidget())),
         );
         if (displayCheckboxColumn) {
-          tableRows.last.children![0] = _buildCheckbox(
+          tableRows.last.children[0] = _buildCheckbox(
             context: context,
             checked: rows[index].selected,
             onRowTap: () =>
@@ -587,7 +586,7 @@ class DataTablePlus extends DataTable {
             .length;
       }
       if (showCheckboxSelectAll) {
-        tableRows[headerIndex].children![0] = _buildCheckbox(
+        tableRows[headerIndex].children[0] = _buildCheckbox(
           context: context,
           checked: someChecked ? null : allChecked,
           onRowTap: null,
@@ -597,7 +596,7 @@ class DataTablePlus extends DataTable {
           tristate: true,
         );
       } else {
-        tableRows[headerIndex].children![0] = SizedBox();
+        tableRows[headerIndex].children[0] = SizedBox();
       }
       displayColumnIndex += 1;
     }
@@ -648,7 +647,7 @@ class DataTablePlus extends DataTable {
       if (customRows != null) {
         for (CustomRow customRow
             in customRows!.where((element) => element.index <= 0)) {
-          tableRows[rowIndex].children![displayColumnIndex] =
+          tableRows[rowIndex].children[displayColumnIndex] =
               customRow.cells[displayColumnIndex];
           if (customRow.index < 0 ||
               customRow.typeCustomRow == TypeCustomRow.ADD) {
@@ -660,7 +659,7 @@ class DataTablePlus extends DataTable {
         }
       }
       if (useDefaultHeader) {
-        tableRows[rowIndex].children![displayColumnIndex] = _buildHeadingCell(
+        tableRows[rowIndex].children[displayColumnIndex] = _buildHeadingCell(
           context: context,
           padding: padding,
           label: column.label,
@@ -691,7 +690,7 @@ class DataTablePlus extends DataTable {
                 -1;
         if (indexCustomRow > -1) {
           tableRows[rowIndex + currentQtdCustomLines]
-                  .children![displayColumnIndex] =
+                  .children[displayColumnIndex] =
               customRows![indexCustomRow].cells[dataColumnIndex];
           if (customRows![indexCustomRow].typeCustomRow ==
               TypeCustomRow.REPLACE) {
@@ -709,7 +708,7 @@ class DataTablePlus extends DataTable {
           final DataCell cell = row.cells[dataColumnIndex];
 
           tableRows[rowIndex + currentQtdCustomLines]
-              .children![displayColumnIndex] = _buildDataCell(
+              .children[displayColumnIndex] = _buildDataCell(
             onRowTap: row is DataRowPlus ? row.onTap : null,
             onRowSecondaryTap: row is DataRowPlus ? row.onSecondaryTap : null,
             onRowSecondaryTapDown:

@@ -1,6 +1,5 @@
 import 'package:data_table_plus/data_table_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class DataTablePlusDemo extends StatefulWidget {
   const DataTablePlusDemo();

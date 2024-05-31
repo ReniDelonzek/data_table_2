@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
+// ignore_for_file: unused_element
+
 import 'package:flutter/rendering.dart';
-import 'package:flutter/src/rendering/layer.dart';
 
 /// An [Invocation] and the [stack] trace that led to it.
 ///

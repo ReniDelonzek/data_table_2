@@ -5,7 +5,7 @@ homepage: https://github.com/ReniDelonzek/data_table_plus
 repository: https://github.com/ReniDelonzek/data_table_plus
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.0.5 <4.0.0'
 
 dependencies:
   flutter:
@@ -15,4 +15,4 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  vector_math: "^2.1.0"
+  vector_math: ^2.1.4

@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vector_math/vector_math_64.dart' show Matrix3;
 
-import 'mock_canvas.dart';
 import 'data_table_plus_test_utils.dart';
 
 void main() {
@@ -494,7 +493,7 @@ void main() {
         sortColumnIndex: sortColumnIndex,
         sortAscending: sortAscending,
         onSelectAll: (bool? value) {},
-        dataRowHeight: dataRowHeight,
+        dataRowMinHeight: dataRowHeight,
         headingRowHeight: headingRowHeight,
         columns: <DataColumnPlus>[
           const DataColumnPlus(
@@ -1466,7 +1465,7 @@ void main() {
     await tester
         .pump(const Duration(milliseconds: 200)); // splash is well underway
     final RenderBox box =
-        Material.of(tester.element(find.byType(InkWell)))! as RenderBox;
+        Material.of(tester.element(find.byType(InkWell))) as RenderBox;
     expect(box, paints..circle(x: 68.0, y: 24.0, color: pressedColor));
     await gesture.up();
   });
